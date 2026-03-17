@@ -4,16 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "rm -rf assets IconDashboard subnet-calculate",
+    "prebuild": "rm -rf assets subnet-calculate && rm -f favicon.ico icon.svg apple-touch-icon.png",
     "dev": "vite",
-    "build": "vite build && cp dist/index.html . && cp -R dist/assets . && cp -R dist/IconDashboard . && cp -R dist/subnet-calculate .",
+    "build": "vite build && cp dist/index.html . && cp -R dist/assets . && mkdir -p subnet-calculate && cp dist/subnet-calculate/index.html subnet-calculate/index.html && cp dist/favicon.ico . && cp dist/icon.svg . && cp dist/apple-touch-icon.png .",
     "preview": "vite preview"
   },
   "dependencies": {
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
     "@vitejs/plugin-vue": "^5.2.1",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1",
     "vite": "^6.2.0"
   }
 }

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Abdul Khoir icon</title>
+  <desc id="desc">Rounded square with AK monogram and teal status dot.</desc>
+  <rect x="10" y="10" width="108" height="108" rx="28" fill="#F7F8FA" />
+  <path
+    d="M34 90V38L52 58L69 38V90M42 68H62"
+    fill="none"
+    stroke="#0B1220"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M79 38V90M79 63L98 38M79 61L100 90"
+    fill="none"
+    stroke="#0B1220"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle cx="99" cy="99" r="10" fill="#14B8A6" />
+</svg>
