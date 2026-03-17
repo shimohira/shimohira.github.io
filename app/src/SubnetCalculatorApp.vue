@@ -198,6 +198,52 @@ const hiddenSegmentCount = computed(() => {
   return Math.max(result.value.subnets.length - 24, 0)
 })
 
+function csvCell(value) {
+  return `"${String(value).replaceAll('"', '""')}"`
+}
+
+function exportCsv() {
+  if (!result.value) {
+    return
+  }
+
+  const lines = [
+    ['Base CIDR', result.value.baseNetwork.cidr],
+    ['Netmask', result.value.baseNetwork.netmask],
+    ['Address Range', result.value.baseNetwork.addressRange],
+    ['Usable Range', result.value.baseNetwork.usableRange],
+    ['Subnet Count', result.value.subnetCount],
+    ['Target Mask', `/${result.value.divideToMask}`],
+    ['Usable Hosts Per Subnet', result.value.totalHostsPerSubnet],
+    [],
+    ['#', 'Subnet', 'Netmask', 'Address Range', 'Usable Range', 'Hosts'],
+    ...result.value.subnets.map((subnet) => [
+      subnet.index,
+      subnet.cidr,
+      subnet.netmask,
+      subnet.addressRange,
+      subnet.usableRange,
+      subnet.hosts,
+    ]),
+  ]
+
+  const csv = lines
+    .map((row) => row.map((cell) => csvCell(cell ?? '')).join(','))
+    .join('\n')
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  const fileBase = result.value.baseNetwork.cidr.replaceAll('/', '-')
+
+  link.href = url
+  link.download = `subnet-report-${fileBase}.csv`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
+
 async function copyShareLink() {
   try {
     await navigator.clipboard.writeText(shareUrl.value)
@@ -344,6 +390,7 @@ onMounted(() => {
               <div class="flex flex-wrap gap-2">
                 <span class="signal-chip">{{ result.subnetCount }} subnets</span>
                 <span class="signal-chip">{{ result.totalHostsPerSubnet }} usable hosts each</span>
+                <button type="button" class="btn-secondary" @click="exportCsv">Export CSV</button>
               </div>
             </div>
 
