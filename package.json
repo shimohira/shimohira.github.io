@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prebuild": "rm -rf assets IconDashboard subnet-calculate",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp dist/index.html . && cp -R dist/assets . && cp -R dist/IconDashboard . && cp -R dist/subnet-calculate .",
     "preview": "vite preview"
   },
   "dependencies": {
